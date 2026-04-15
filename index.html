@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clinipop × Sigma — Proposta Comercial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0f1e;
+      --bg-alt: #0d1425;
+      --card: #141927;
+      --border: #1e2d45;
+      --green: #00c896;
+      --green-dim: rgba(0, 200, 150, 0.12);
+      --green-glow: rgba(0, 200, 150, 0.25);
+      --white: #ffffff;
+      --muted: #a0aec0;
+      --font: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    section { padding: 96px 24px; }
+    .container { max-width: 1080px; margin: 0 auto; }
+    .section-alt { background-color: var(--bg-alt); }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    h1 { font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 900; line-height: 1.05; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.15; }
+    h3 { font-size: 1.2rem; font-weight: 700; }
+    p  { color: var(--muted); font-size: 1rem; }
+
+    .text-green { color: var(--green); }
+    .text-muted  { color: var(--muted); }
+    .text-white  { color: var(--white); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 24px;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,200,150,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,200,150,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1080px; margin: 0 auto; width: 100%; }
+    .hero-logo { margin-bottom: 48px; }
+    .hero-logo img { height: 52px; object-fit: contain; }
+    .sigma-wordmark {
+      font-size: 1.8rem; font-weight: 900;
+      letter-spacing: 0.22em; color: var(--green);
+    }
+    .sigma-tagline-hero {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); margin-top: 4px;
+    }
+    .hero-title { margin-bottom: 16px; }
+    .hero-title .x-divider { color: var(--green); }
+    .hero-subtitle { font-size: 1.15rem; color: var(--muted); margin-bottom: 32px; }
+    .hero-clients {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 999px; padding: 10px 20px;
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .hero-clients span.dot {
+      width: 8px; height: 8px;
+      background: var(--green); border-radius: 50%;
+      display: inline-block; box-shadow: 0 0 8px var(--green);
+    }
+
+    /* CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; margin-top: 48px;
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .card:hover { border-color: rgba(0,200,150,0.35); transform: translateY(-3px); }
+    .card-icon {
+      width: 48px; height: 48px;
+      background: var(--green-dim); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 22px;
+    }
+    .card h3 { margin-bottom: 10px; color: var(--white); }
+    .card p { font-size: 0.93rem; }
+
+    /* CUSTO */
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .cost-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 24px; text-align: center;
+    }
+    .cost-item .cost-label {
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .cost-item .cost-value { font-size: 2rem; font-weight: 800; color: var(--white); line-height: 1; }
+    .cost-item.highlight {
+      border-color: var(--green);
+      background: linear-gradient(135deg, rgba(0,200,150,0.08), rgba(0,200,150,0.03));
+      box-shadow: 0 0 32px rgba(0,200,150,0.12);
+    }
+    .cost-item.highlight .cost-value { color: var(--green); font-size: 2.4rem; }
+    .cost-footer {
+      margin-top: 32px;
+      background: var(--green-dim); border: 1px solid rgba(0,200,150,0.3);
+      border-radius: 12px; padding: 20px 28px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1rem; font-weight: 600; color: var(--green);
+    }
+    .cost-footer .icon { font-size: 1.4rem; }
+
+    /* CASE */
+    .case-card {
+      background: linear-gradient(135deg, #141927, #0f1b2e);
+      border: 1px solid rgba(0,200,150,0.4);
+      border-radius: 20px; padding: 48px; margin-top: 48px;
+      box-shadow: 0 0 60px rgba(0,200,150,0.1);
+      position: relative; overflow: hidden;
+    }
+    .case-card::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,200,150,0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .case-header {
+      display: flex; align-items: flex-start;
+      gap: 16px; margin-bottom: 36px; flex-wrap: wrap;
+    }
+    .case-badge {
+      background: var(--green); color: #0a0f1e;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 999px;
+    }
+    .case-client-name { font-size: 1.5rem; font-weight: 800; color: var(--white); line-height: 1.2; }
+    .case-location { font-size: 0.9rem; color: var(--muted); }
+    .case-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px; margin-bottom: 28px;
+    }
+    .metric { display: flex; flex-direction: column; gap: 4px; }
+    .metric-label {
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+    }
+    .metric-value { font-size: 2rem; font-weight: 800; color: var(--white); line-height: 1; }
+    .metric-value.big { font-size: 2.5rem; color: var(--green); }
+    .case-roi-line {
+      background: var(--green-dim); border: 1px solid rgba(0,200,150,0.25);
+      border-radius: 10px; padding: 16px 24px;
+      font-size: 1.05rem; font-weight: 700; color: var(--green);
+    }
+    .case-footer-note { margin-top: 16px; font-size: 0.82rem; color: var(--muted); }
+
+    /* OFERTAS */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px; margin-top: 48px; align-items: start;
+    }
+    .offer-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 40px;
+      position: relative; transition: transform 0.25s;
+    }
+    .offer-card:hover { transform: translateY(-4px); }
+    .offer-card.recommended {
+      border-color: var(--green);
+      box-shadow: 0 0 48px rgba(0,200,150,0.15), 0 0 0 1px rgba(0,200,150,0.2);
+      background: linear-gradient(145deg, #141927, #0f1e2a);
+    }
+    .offer-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #0a0f1e;
+      font-size: 0.73rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 999px; white-space: nowrap;
+    }
+    .offer-name { font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+    .offer-price { font-size: 2.6rem; font-weight: 900; color: var(--green); line-height: 1; margin: 20px 0 6px; }
+    .offer-installment { font-size: 0.9rem; color: var(--muted); margin-bottom: 28px; }
+    .offer-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .offer-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .offer-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.92rem; color: var(--muted);
+    }
+    .offer-list li .check { color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    .offer-addon {
+      margin-top: 24px;
+      background: rgba(0,200,150,0.06); border: 1px dashed rgba(0,200,150,0.3);
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .offer-addon strong { color: var(--green); }
+
+    /* POR QUE SIGMA */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px; margin-top: 48px;
+    }
+    .why-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .why-item:hover { border-color: rgba(0,200,150,0.3); transform: translateY(-2px); }
+    .why-icon {
+      width: 44px; height: 44px;
+      background: var(--green-dim); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .why-text h3 { font-size: 1rem; margin-bottom: 5px; }
+    .why-text p { font-size: 0.85rem; }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 48px; max-width: 680px; }
+    .timeline-item { display: flex; gap: 24px; }
+    .timeline-left { display: flex; flex-direction: column; align-items: center; }
+    .timeline-dot {
+      width: 44px; height: 44px;
+      background: var(--green-dim); border: 2px solid var(--green);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800; color: var(--green);
+      flex-shrink: 0; box-shadow: 0 0 12px rgba(0,200,150,0.2);
+    }
+    .timeline-line {
+      width: 2px; flex: 1;
+      background: linear-gradient(to bottom, var(--green), var(--border));
+      margin: 6px 0; min-height: 40px;
+    }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-content { padding: 6px 0 40px; }
+    .timeline-content h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--white); }
+    .timeline-content p { font-size: 0.92rem; }
+    .timeline-tag {
+      display: inline-block;
+      background: var(--green-dim); border: 1px solid rgba(0,200,150,0.25);
+      color: var(--green); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 999px; margin-bottom: 8px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #060a14; border-top: 1px solid var(--border);
+      padding: 60px 24px; text-align: center;
+    }
+    .footer-logo { font-size: 1.6rem; font-weight: 900; letter-spacing: 0.2em; color: var(--green); margin-bottom: 6px; }
+    .footer-tagline {
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 24px;
+    }
+    .footer-info { font-size: 0.9rem; color: var(--muted); line-height: 2; }
+    .footer-info a { color: var(--muted); text-decoration: none; }
+    .footer-info a:hover { color: var(--green); }
+    .footer-validity {
+      margin-top: 24px; display: inline-block;
+      background: var(--green-dim); border: 1px solid rgba(0,200,150,0.25);
+      color: var(--green); font-size: 0.82rem; font-weight: 600;
+      padding: 8px 20px; border-radius: 999px;
+    }
+
+    /* WHATSAPP BUTTON */
+    .whatsapp-btn {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #25d366; color: #fff;
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 22px; border-radius: 999px;
+      text-decoration: none; font-weight: 700; font-size: 0.9rem;
+      font-family: var(--font);
+      box-shadow: 0 4px 24px rgba(37,211,102,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(37,211,102,0.55); }
+    .whatsapp-icon { width: 22px; height: 22px; fill: #fff; }
+
+    @media (max-width: 680px) {
+      section { padding: 72px 20px; }
+      .offers-grid { grid-template-columns: 1fr; }
+      .case-card { padding: 32px 24px; }
+      .offer-card { padding: 32px 24px; }
+      h1 { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SEÇÃO 1 — CAPA -->
+<section id="hero">
+  <div class="hero-inner">
+
+    <div class="hero-logo reveal">
+      <img
+        src="https://portfolio.aagenciasigma.com.br/sem%20fundo%20sigma.png"
+        alt="Assessoria Sigma"
+        onerror="this.style.display='none'; document.getElementById('sigma-fallback').style.display='block';"
+      />
+      <div id="sigma-fallback" style="display:none;">
+        <div class="sigma-wordmark">SIGMA</div>
+        <div class="sigma-tagline-hero">Engenharia de faturamento para clínicas veterinárias</div>
+      </div>
+    </div>
+
+    <div class="hero-title reveal reveal-delay-1">
+      <h1>Clinipop<span class="x-divider"> × </span>Sigma</h1>
+    </div>
+
+    <p class="hero-subtitle reveal reveal-delay-2">Proposta comercial · Abril 2026</p>
+
+    <div class="hero-clients reveal reveal-delay-3">
+      <span class="dot"></span>
+      Dr. Alexandre Rios &amp; Dra. Karine
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SEÇÃO 2 — DIAGNÓSTICO -->
+<section class="section-alt">
+  <div class="container">
+
+    <span class="section-label reveal">Diagnóstico</span>
+    <h2 class="reveal reveal-delay-1">O que identificamos<br/>na <span class="text-green">Clinipop</span></h2>
+
+    <div class="cards-grid">
+
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon">📋</div>
+        <h3>Orçamentos sem follow-up</h3>
+        <p>Leads chegam, pedem preço e somem. Sem acompanhamento estruturado, esse dinheiro fica na mesa toda semana.</p>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon">📅</div>
+        <h3>No-show na agenda</h3>
+        <p>Castrações agendadas que não comparecem. Semanas com 8 procedimentos marcados e só 1 aparece.</p>
+      </div>
+
+      <div class="card reveal reveal-delay-3">
+        <div class="card-icon">📉</div>
+        <h3>Zero captação ativa</h3>
+        <p>Nenhum investimento em tráfego hoje. A demanda caiu nos últimos 2 anos e não há sistema para reverter esse movimento.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- SEÇÃO 3 — CUSTO DE NÃO AGIR -->
+<section>
+  <div class="container">
+
+    <span class="section-label reveal">Impacto financeiro</span>
+    <h2 class="reveal reveal-delay-1">O custo de <span class="text-green">não agir</span></h2>
+    <p class="reveal reveal-delay-2" style="margin-top: 12px; max-width: 560px;">Cada no-show não é só uma agenda vazia — é receita que já estava na mão e foi embora.</p>
+
+    <div class="cost-grid">
+
+      <div class="cost-item reveal reveal-delay-1">
+        <div class="cost-label">Cada castração</div>
+        <div class="cost-value">~R$ 150</div>
+      </div>
+
+      <div class="cost-item reveal reveal-delay-2">
+        <div class="cost-label">8 faltas por semana</div>
+        <div class="cost-value">R$ 1.200</div>
+      </div>
+
+      <div class="cost-item reveal reveal-delay-3">
+        <div class="cost-label">Em 1 mês</div>
+        <div class="cost-value">R$ 4.800</div>
+      </div>
+
+      <div class="cost-item highlight reveal reveal-delay-4">
+        <div class="cost-label">Perdidos por ano</div>
+        <div class="cost-value">R$ 57.600</div>
+      </div>
+
+    </div>
+
+    <div class="cost-footer reveal">
+      <span class="icon">💡</span>
+      Só recuperando os no-shows, o investimento se paga no <strong style="margin-left:4px;">1º mês</strong>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SEÇÃO 4 — CASE DE RESULTADO -->
+<section class="section-alt">
+  <div class="container">
+
+    <span class="section-label reveal">Prova social</span>
+    <h2 class="reveal reveal-delay-1">Resultado real de <span class="text-green">um cliente nosso</span></h2>
+
+    <div class="case-card reveal reveal-delay-2">
+
+      <div class="case-header">
+        <div>
+          <div class="case-badge">Case verificado</div>
+        </div>
+        <div style="margin-top: 12px;">
+          <div class="case-client-name">Hospital Veterinário São Bernardo</div>
+          <div class="case-location">Curitiba, Paraná · Google Ads · Janeiro 2026</div>
+        </div>
+      </div>
+
+      <div class="case-metrics">
+
+        <div class="metric">
+          <span class="metric-label">Investimento</span>
+          <span class="metric-value">R$ 4.370</span>
+        </div>
+
+        <div class="metric">
+          <span class="metric-label">Receita gerada</span>
+          <span class="metric-value">R$ 133.367,58</span>
+        </div>
+
+        <div class="metric">
+          <span class="metric-label">ROI</span>
+          <span class="metric-value big">3.053%</span>
+        </div>
+
+      </div>
+
+      <div class="case-roi-line">
+        Para cada R$ 1 investido → R$ 30,53 de retorno
+      </div>
+
+      <p class="case-footer-note">* Resultado apurado em Janeiro de 2026. Campanha de Google Ads com foco em busca local.</p>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- SEÇÃO 5 — AS 2 OFERTAS -->
+<section>
+  <div class="container">
+
+    <span class="section-label reveal">Proposta</span>
+    <h2 class="reveal reveal-delay-1">Escolha o plano <span class="text-green">ideal para a Clinipop</span></h2>
+    <p class="reveal reveal-delay-2" style="margin-top: 12px; max-width: 600px;">Duas opções pensadas para a realidade da clínica. Implementação imediata após o fechamento.</p>
+
+    <div class="offers-grid">
+
+      <!-- OFERTA 1 — Âncora -->
+      <div class="offer-card reveal reveal-delay-1">
+        <p class="text-muted" style="font-size: 0.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px;">Completo</p>
+        <div class="offer-name">Clinipop Completo</div>
+        <div class="offer-price">R$ 7.500</div>
+        <div class="offer-installment">ou até 3× de R$ 2.500</div>
+
+        <div class="offer-divider"></div>
+
+        <ul class="offer-list">
+          <li><span class="check">✓</span> Treinamento da secretária no WhatsApp</li>
+          <li><span class="check">✓</span> Script de atendimento e follow-up de orçamentos</li>
+          <li><span class="check">✓</span> Processo de confirmação e redução de no-show</li>
+          <li><span class="check">✓</span> Playbook comercial da Clinipop</li>
+          <li><span class="check">✓</span> Site otimizado para conversão em Cascavel</li>
+          <li><span class="check">✓</span> Campanhas Google Ads (castrações + ortopedia)</li>
+          <li><span class="check">✓</span> Relatório mensal de resultados</li>
+          <li><span class="check">✓</span> <span style="color:var(--white);">Kommo CRM — setup completo incluso</span></li>
+          <li><span class="check">✓</span> Pipeline de leads + funil de agendamento</li>
+          <li><span class="check">✓</span> Automação de lembretes e confirmações</li>
+        </ul>
+
+        <div class="offer-addon" style="border-style: solid; border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.03);">
+          <strong style="color:var(--muted);">Após o projeto:</strong> Clinipop mantém o Kommo por ~R$ 374/mês
+        </div>
+      </div>
+
+      <!-- OFERTA 2 — Recomendada -->
+      <div class="offer-card recommended reveal reveal-delay-2">
+        <div class="offer-badge">⭐ Recomendada</div>
+
+        <p class="text-muted" style="font-size: 0.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:8px; margin-top: 12px;">Motor</p>
+        <div class="offer-name">Motor de Receita Clinipop</div>
+        <div class="offer-price">R$ 6.000</div>
+        <div class="offer-installment">ou até 3× de R$ 2.000</div>
+
+        <div class="offer-divider"></div>
+
+        <ul class="offer-list">
+          <li><span class="check">✓</span> Treinamento da secretária no WhatsApp</li>
+          <li><span class="check">✓</span> Script de atendimento e follow-up de orçamentos</li>
+          <li><span class="check">✓</span> Processo de confirmação e redução de no-show</li>
+          <li><span class="check">✓</span> Playbook comercial da Clinipop</li>
+          <li><span class="check">✓</span> Site otimizado para conversão em Cascavel</li>
+          <li><span class="check">✓</span> Campanhas Google Ads (castrações + ortopedia)</li>
+          <li><span class="check">✓</span> Relatório mensal de resultados</li>
+        </ul>
+
+        <div class="offer-addon">
+          <strong>Add-on disponível:</strong> Kommo CRM completo por + R$ 1.500
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- SEÇÃO 6 — POR QUE A SIGMA -->
+<section class="section-alt">
+  <div class="container">
+
+    <span class="section-label reveal">Diferenciais</span>
+    <h2 class="reveal reveal-delay-1">Por que a <span class="text-green">Sigma</span></h2>
+
+    <div class="why-grid">
+
+      <div class="why-item reveal reveal-delay-1">
+        <div class="why-icon">🐾</div>
+        <div class="why-text">
+          <h3>Especialistas em veterinárias</h3>
+          <p>Trabalhamos exclusivamente com clínicas e hospitais veterinários.</p>
+        </div>
+      </div>
+
+      <div class="why-item reveal reveal-delay-2">
+        <div class="why-icon">⚙️</div>
+        <div class="why-text">
+          <h3>Metodologia MTV</h3>
+          <p>Motor de Receita Veterinária — sistema próprio testado em mais de 45 clínicas.</p>
+        </div>
+      </div>
+
+      <div class="why-item reveal reveal-delay-3">
+        <div class="why-icon">🤝</div>
+        <div class="why-text">
+          <h3>Sem multa de contrato</h3>
+          <p>Ficamos porque geramos resultado, não porque você é obrigado a ficar.</p>
+        </div>
+      </div>
+
+      <div class="why-item reveal reveal-delay-4">
+        <div class="why-icon">🏥</div>
+        <div class="why-text">
+          <h3>45+ clínicas</h3>
+          <p>Com o sistema implementado e gerando resultados recorrentes.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- SEÇÃO 7 — PRÓXIMOS PASSOS -->
+<section>
+  <div class="container">
+
+    <span class="section-label reveal">Implementação</span>
+    <h2 class="reveal reveal-delay-1">Próximos <span class="text-green">passos</span></h2>
+    <p class="reveal reveal-delay-2" style="margin-top: 12px; max-width: 560px;">A Clinipop começa a gerar resultado em menos de 30 dias após o fechamento.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-left">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Hoje</div>
+          <h3>Fechamento</h3>
+          <p>Contrato assinado e início imediato. Reunião de kick-off marcada.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-left">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Semana 1–2</div>
+          <h3>Diagnóstico + configuração</h3>
+          <p>Diagnóstico completo da operação, configuração do CRM, treinamento da equipe e estruturação dos scripts.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-left">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-tag">Semana 3–4</div>
+          <h3>Lançamento completo</h3>
+          <p>Site no ar, Google Ads rodando para Cascavel, equipe treinada e sistema de confirmações ativo.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- RODAPÉ -->
+<footer>
+  <div class="footer-logo">SIGMA</div>
+  <div class="footer-tagline">Engenharia de faturamento para clínicas veterinárias</div>
+  <div class="footer-info">
+    Assessoria Sigma &nbsp;·&nbsp;
+    <a href="mailto:aagenciasigma@gmail.com">aagenciasigma@gmail.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://wa.me/5544999251952">(44) 99925-1952</a>
+  </div>
+  <div class="footer-validity">Proposta válida até 30/04/2026</div>
+</footer>
+
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a href="https://wa.me/5544999251952" class="whatsapp-btn" target="_blank" rel="noopener">
+  <svg class="whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  Falar no WhatsApp
+</a>
+
+
+<!-- INTERSECTION OBSERVER -->
+<script>
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => observer.observe(el));
+    document.querySelectorAll('#hero .reveal').forEach((el) => {
+      el.classList.add('visible');
+    });
+  })();
+</script>
+
+</body>
+</html>
